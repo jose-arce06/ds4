@@ -14,6 +14,16 @@ def display_board(dboard:dict)->None:
     print("-+-+-")
     print(f"{dboard[6]}|{dboard[7]}|{dboard[8]}")
 
+def player_turn(player:str, dboard:dict, position:int)->int:
+    """
+    Docstring for player_turn
+    """
+    if dboard[position] not in ['X', 'O']:
+        dboard[position] = player
+        return 0
+    else:
+        print("Position already taken. Try again.")
+        return -1
 
 # Example usage
 if __name__ == "__main__":
