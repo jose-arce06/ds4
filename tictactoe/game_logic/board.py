@@ -18,17 +18,31 @@ def player_turn(player:str, dboard:dict, position:int)->int:
     """
     Docstring for player_turn
     """
-    if dboard[position] not in ['X', 'O']:
-        dboard[position] = player
-        return 0
+    valid_move = False
+    user_input = input(f"Player {player}, enter your move (0-8): ")
+    user_input = int(user_input)
+    print(f"value entered: {user_input} type: {type(user_input)}")
+    if user_input in dboard.keys():
+        if dboard[user_input] not in ['X', 'O']:
+            dboard[user_input] = player
+            valid_move = True
+        else:
+            print("Invalid move! cell already occupied.")
     else:
-        print("Position already taken. Try again.")
-        return -1
+        print("Invalid move! cell ")
+    return valid_move
 
-# Example usage
 if __name__ == "__main__":
     board = {x:str(x) for x in range(9)}
     display_board(board)
-    board[0] = 'X'
-    board[4] = 'O'
-    display_board(board)   
+    move =player_turn('X', board, 0)
+    print(f"Move valid: {move}")
+    display_board(board)  
+
+    move =player_turn('O', board, 0)
+    print(f"Move valid: {move}")
+    display_board(board) 
+    print(board)
+     
+    # board[0] = 'X'
+    # board[4] = 'O'
