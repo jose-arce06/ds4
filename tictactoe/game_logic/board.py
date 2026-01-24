@@ -14,7 +14,7 @@ def display_board(dboard:dict)->None:
     print("-+-+-")
     print(f"{dboard[6]}|{dboard[7]}|{dboard[8]}")
 
-def player_turn(player:str, dboard:dict, position:int)->int:
+def player_turn(player:str, dboard:dict)->bool:
     """
     Docstring for player_turn
     """
