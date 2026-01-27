@@ -27,16 +27,25 @@ def game():
     x_players = 'X'
     o_players = 'O'
     current_player = x_players
-    while turn < 9:
+    winner = False
+    while turn < 9 and not winner:
         board.display_board(dboard)
         valid_move = False
         while not valid_move:
             valid_move = board.player_turn(current_player, dboard)
-        turn += 1
+        turn += 1.
+        winner = check_winner(dboard, combo_list)
+        if winner:
+            w_player = current_player
         if current_player == x_players:
             current_player = o_players
         else:
             current_player = x_players
+    board.display_board(dboard)
+    if winner:
+        print(f"Winner: Player {w_player}")
+    else:
+        print("It's a tie!")
 
 if __name__ == "__main__":
     game()

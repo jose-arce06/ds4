@@ -1,6 +1,6 @@
 """
 Docstring for tictactoe.game_logic.board
-Author: jose arce
+Author: Jose Arce
 """
 
 def display_board(dboard:dict)->None:
