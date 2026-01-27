@@ -28,6 +28,7 @@ def game():
     o_players = 'O'
     current_player = x_players
     winner = False
+    w_player = ""
     while turn < 9 and not winner:
         board.display_board(dboard)
         valid_move = False
