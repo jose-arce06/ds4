@@ -5,7 +5,7 @@ Author: jose arce
 
 def display_board(dboard:dict)->None:
     """
-    Docstring for display_board
+    Display game board of Tictactoe
     """
     d= dboard
     print(f"{dboard[0]}|{dboard[1]}|{dboard[2]}")
@@ -16,7 +16,7 @@ def display_board(dboard:dict)->None:
 
 def player_turn(player:str, dboard:dict)->bool:
     """
-    Docstring for player_turn
+    Ask player for their turn
     """
     valid_move = False
     user_input = input(f"Player {player}, enter your move (0-8): ")
@@ -35,11 +35,11 @@ def player_turn(player:str, dboard:dict)->bool:
 if __name__ == "__main__":
     board = {x:str(x) for x in range(9)}
     display_board(board)
-    move =player_turn('X', board, 0)
+    move =player_turn('X', board,)
     print(f"Move valid: {move}")
     display_board(board)  
 
-    move =player_turn('O', board, 0)
+    move =player_turn('O', board,)
     print(f"Move valid: {move}")
     display_board(board) 
     print(board)

@@ -1,5 +1,7 @@
 """
-
+Docstring for game_logic
+Author: Jose Arce
+Here goes the game logic for Tictactoe
 """
 import board
 
