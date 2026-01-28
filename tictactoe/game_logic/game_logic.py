@@ -13,7 +13,7 @@ def check_winner(d:dict, combo_list:list)->bool:
         if d[combo[0]] == d[combo[1]] == d[combo[2]]:
             return True
     return False
-def game():
+def game()->str:
     """
     Here lives the main game logic
     """
@@ -43,10 +43,15 @@ def game():
         else:
             current_player = x_players
     board.display_board(dboard)
-    if winner:
-        print(f"Winner: Player {w_player}")
-    else:
-        print("It's a tie!")
+    return w_player
+    #if winner:
+    #    print(f"Winner: Player {w_player}")
+    #else:
+    #    print("It's a tie!")
 
 if __name__ == "__main__":
-    game()
+    win = game()
+    if len(win) > 0:
+        print(f"Winner: Player {win}")
+    else:
+        print(f"It's a tie!")
