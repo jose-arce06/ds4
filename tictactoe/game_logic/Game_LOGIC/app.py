@@ -3,8 +3,8 @@ Tic Tac Toe Game
 Author: Federico Cirett Galan
 """
 #from game_logic import game
-from game_logic import play_game
-from menu import display_menu
+from Game_LOGIC.game_logic import play_game
+from Game_LOGIC.menu import display_menu
 
 def main()-> None:
     """ Main function to run the Tic Tac Toe game

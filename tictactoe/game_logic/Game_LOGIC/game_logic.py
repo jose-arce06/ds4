@@ -4,7 +4,7 @@ Author: Federico Cirett Galán
 Here goes the game logic for Tictactoe
 """
 import random
-import board
+import Game_LOGIC.board as board
 
 def check_winner(d:dict, combo_list:list)->bool:
     """
