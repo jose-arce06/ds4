@@ -19,6 +19,11 @@ class Athlete:
         """ Set the athlete's number
         """
         self.number = number
+    def to_json(self):
+        return {
+            "name": self.name,
+            "number": self.number
+        }
     
 if __name__ == "__main__":
     athlete1 = Athlete("Lionel Messi")
