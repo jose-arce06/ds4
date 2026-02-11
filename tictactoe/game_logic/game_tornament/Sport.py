@@ -1,8 +1,20 @@
 class Sport:
+    max_score = {
+            "Futbol": 5,
+            "Basketball": 130,
+            "Futbol Americano": 60,
+            "Baseball": 20,
+            "Hockey": 10
+        }
     def __init__(self, name, num_players, league):
         self.name = name
         self.league = league
         self.num_players = num_players
+    def add_name(self, name):
+        if name in self.max_score:
+            self.name = name
+        else:            
+            raise ValueError(f"Sport name must be one of {list(self.max_score.keys())}") 
     def __str__(self):
         return f"{self.name}({self.league}) - {self.num_players} players"
     def __repr__(self):
