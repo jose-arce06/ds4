@@ -70,10 +70,18 @@ def a_tournament():
     """ Example usage of the Game class in a tournament setting. """
     players_mex = ['Chicharito','Piojo','Guardado','Hector Moreno','Rafa Marquez','Salcido','Vela','Dos Santos','Herrera','Layun','Corona']
     players_arg = ['Messi','Di Maria','Aguero','Higuain','Mascherano','Biglia','Dybala','Paredes','Tagliafico','Otamendi','Zabaleta']
-    
-
+    sport = Sport("Futbol", 11, "FIFA")
+    team_mex = Team("Mexico", sport)
+    team_arg = Team("Argentina", sport)
+    for player in players_mex:
+        team_mex.add_athlete(Athlete(player))
+    for player in players_arg:
+        team_arg.add_athlete(Athlete(player))
+    game = Game(team_mex, team_arg)
+    game_string = game.to_json()
+    return game_string
 
 if __name__ == "__main__":
-    string_game = a_game()
-    save_game_to_json(string_game, "game.json")
+    string_game = a_tournament()
+    save_game_to_json(string_game, "tournament.json")
     print(string_game)
