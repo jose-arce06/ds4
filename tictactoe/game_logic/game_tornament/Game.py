@@ -137,9 +137,8 @@ def a_tournament():
     json_string = ""
     for team in tournament_list:
         json_string += f"{team.to_json()},\n"
-    json_string = f"[\n{json_string[:-2]}\n]"
+    json_string = f"[\n{json_string[:-2]}\n]"  # Remove trailing comma and newline
     return json_string
-
 
 if __name__ == "__main__":
     string_game = a_tournament()
