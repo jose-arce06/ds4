@@ -7,6 +7,7 @@ from Game import Game
 from Team import Team
 from Sport import Sport
 from Athlete import Athlete
+from Group import Group
 
 class Tournament:
     """ Tournament class represents a tournament. It has a name, a list of games, and a list of teams. """
@@ -15,6 +16,7 @@ class Tournament:
         self.name = name
         self.games = []
         self.teams = []
+        self.groups = []
     def add_team(self, team):
         """ Add a team to the tournament. """
         if isinstance(team, Team):
@@ -40,6 +42,21 @@ class Tournament:
             "teams": [team.to_json() for team in self.teams],
             "games": [game.to_json() for game in self.games]
         }
+    def set_groups(self, group_list, group_name):
+        """ Set the groups for the tournament. """
+        group = Group(group_name)
+        for team in group_list:
+            group.add_team(team)
+        self.groups[group_name]=group
+
+    def set_group_stage(self):
+        """ Set the group stage for the tournament. """
+        if len(self.teams) == 8:
+            group_a = self.teams[:4]
+            group_b = self.teams[4:]
+            self.set_groups(group_a, "Group A")
+            self.set_groups(group_b, "Group B")
+             
     def load_json(self, filename):
         """ Load a Tournament object from a JSON file."""
         print("Tournament")
@@ -60,4 +77,6 @@ class Tournament:
 if __name__ == "__main__":
     tournament = Tournament("FIFA World Cup")
     tournament.load_json("tournament.json")
-    print(tournament)
+    tournament.set_group_stage()
+    print(tournament.groups['Group A'].games)
+    print(tournament.groups['Group B'].games)
