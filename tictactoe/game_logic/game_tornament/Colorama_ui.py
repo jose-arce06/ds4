@@ -26,7 +26,7 @@ class ColoramaUI:
             if choice == "1":
                 file_path = input("Engter the path to the JSON file: ")
                 self.set_current_file(file_path)
-                self.open_tournament(file_path)
+                self.open_tournament()
             elif choice == "2":
                 self.display_tournament()
             elif choice == "3":
@@ -77,8 +77,8 @@ class ColoramaUI:
             "1": self.get_tournament_json,
             "2": self.display_tournament,
             "3": self.display_groups,
-            #"4": self.display_games,
-            #"5": self.play_games,
+            "4": self.display_games,
+            "5": self.play_games,
             "6": self.exit_app
         }
         while True:
@@ -106,7 +106,22 @@ class ColoramaUI:
         
         # Reset and clear for menu
         print(Style.RESET_ALL, end="")
-        
+    def display_games(self):
+        """ Display games """
+        # Set colors before clearing screen to fill background
+        print(Back.MAGENTA + Fore.WHITE, end="")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(str(self.tournament))
+        self.tournament.display_games()
+        print(Style.RESET_ALL, end="")
+    def play_games(self):
+        """ Play games """
+        # Set colors before clearing screen to fill background
+        print(Back.YELLOW + Fore.BLACK, end="")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(str(self.tournament))
+        self.tournament.play_games()
+        print(Style.RESET_ALL, end="")
 if __name__ == "__main__":
     ui = ColoramaUI()
     ui.set_current_file("tournament.json")
