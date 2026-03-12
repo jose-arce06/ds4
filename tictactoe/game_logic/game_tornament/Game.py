@@ -147,5 +147,6 @@ def a_tournament():
 
 if __name__ == "__main__":
     string_game = a_tournament()
+    print(string_game)
     save_game_to_json(string_game, "tournament.json")
     print(string_game)
