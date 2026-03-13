@@ -28,6 +28,7 @@ class Animal:
 
     def __repr__(self):
         return f"Animal(nombre={self.nombre!r}, clase={self.clase!r}, caracteristicas={self.caracteristicas!r})"
+    
 
     def a_dict(self) -> Dict[str, Any]:
         return {

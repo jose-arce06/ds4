@@ -90,6 +90,7 @@ def listar_por_caracteristica(animales, caracteristica):
 
     if not columna_real:
         return []
+    
 
     resultados = []
     for row in animales.values():
