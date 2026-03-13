@@ -16,7 +16,7 @@ RUTA_ZOO    = Path(r"C:\Users\Home\OneDrive\Documents\ds4\tictactoe\game_logic\z
 
 for p in (RUTA_CLASES, RUTA_ZOO):
     if not p.exists():
-        raise FileNotFoundError(f"No se encontró: {p}")
+        raise FileNotFoundError(f"No se encontro: {p}")
 
 HEADERS_CLASES = ["Clase_id", "Clase_tipo"]
 HEADERS_ZOO = [
@@ -35,7 +35,7 @@ def guardar_datos(clases, animales):
     escribir_diccionario_a_csv(str(RUTA_ZOO), animales, HEADERS_ZOO)
 
 if __name__ == "__main__":
-    print("Iniciando sistema de Zoológico")
+    print("Iniciando sistema de Zoologico")
     clases, animales = cargar_datos()
     by_id, by_tipo = construir_indices_clases(clases)
 
@@ -60,15 +60,15 @@ if __name__ == "__main__":
         elif op == 3:
             nombre = input("\nNombre del animal: ").strip()
             clase_in = input("Clase id o tipo: ").strip()
-            feats = input("Características separadas por ';': ").strip()
+            feats = input("Caracteristicas separalos por ';': ").strip()
             lista = [x.strip() for x in feats.split(";") if x.strip()]
             try:
                 nuevo = agregar_animal(animales, by_id, by_tipo, nombre, clase_in, lista)
-                print("\nAgregado →", nuevo)
+                print("\nAgregado ", nuevo)
             except Exception as e:
                 print("Error:", e)
         elif op == 4:
-            print("\nAgregar varios ENTER para terminar")
+            print("\nAgregar varios enter para terminar")
             while True:
                 nombre = input("\nNombre: ").strip()
                 if not nombre: break
@@ -83,5 +83,5 @@ if __name__ == "__main__":
         elif op == 5:
             print("Guardando")
             guardar_datos(clases, animales)
-            print("Listo Adios ")
+            print("si funciono  ")
             break

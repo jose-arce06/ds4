@@ -68,7 +68,7 @@ def listar_por_clase(animales, clases_by_id, clases_by_tipo, clase_input):
 
             features = [
                 col for col, v in row.items()
-                if col not in ("nombre_animal", "clase") and v == "1"
+                if col not in ("nombre_animal", "clases") and v == "1"
             ]
             resultados.append(Animal(nombre, tipo, features))
 
@@ -107,7 +107,7 @@ def agregar_animal(animales, clases_by_id, clases_by_tipo, nombre, clase_input, 
     else:
         clase_id = clases_by_tipo.get(_norm(clase_input), None)
         if not clase_id:
-            raise ValueError("La clase no existe.")
+            raise ValueError("La clases no existe.")
 
     sample = next(iter(animales.values()))
     columnas = list(sample.keys())
@@ -143,7 +143,7 @@ def menu_opcion():
     print("5) Guardar y SALIR")
 
     while True:
-        o = input("Opción (1-5): ").strip()
+        o = input("Opción es del 1-5: ").strip()
         if o in {"1", "2", "3", "4", "5"}:
             return int(o)
         print("Invalido.")
