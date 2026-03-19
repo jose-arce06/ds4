@@ -149,7 +149,7 @@ class Tournament:
         print("Final Stage")
         for game in self.final_stage:
             print(game)
-    
+
 if __name__ == "__main__":
     tournament = Tournament("FIFA World Cup")
     tournament.load_json("tournament.json")
