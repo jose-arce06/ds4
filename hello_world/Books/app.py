@@ -1,17 +1,17 @@
 from flask import Flask, render_template, request
 from Book import Book, load_books 
-import Book_functions
+from Book_functions import create_author_dictionary, create_book_dictionary
 
 app = Flask(__name__)
 
 filename = 'booklist2000.csv'
 books = load_books(filename)
-author_dict = Book_functions.create_author_dictionary(books)
-book_dict = Book_functions.create_book_dictionary(books)
+author_dict = create_author_dictionary(books)
+book_dict = create_book_dictionary(books)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('new_index.html')
 
 @app.route('/search_by_author', methods=['GET', 'POST'])
 def search_by_author():
