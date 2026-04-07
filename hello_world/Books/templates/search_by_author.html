@@ -1,22 +1,23 @@
+<center>
 {% extends "base.html" %}
-{% block title %}Libros web - Inicio{% endblock %}
+{% block title %}Libra Online Library - Search by Author{% endblock %}
 {% block body %}
 
-<div>
-    <div>
-        <center>
-            <img src="/static/images/libra_online_book_cbg.png" alt="Libra Online Library" height="100">
-        </center>
-    <center>
-    <h1>Search by Author</h1>
-    <form action="/search_by_author" method="post">
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author">
-        <input type="submit" value="Search">
-    </form>
-   
-        {% for book in books_list %}
-        <li><a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author }}</li>
-        {% endfor %}
-    </center>
+<h1>Search by Author</h1>
+
+<form action="/search_by_author" method="post">
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author">
+    <input type="submit" value="Search">
+</form>
+
+<ul>
+  
+    {% for book in books_list %}
+    <li><a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author }}</li>
+    {% endfor %}
+
+</ul>
+
 {% endblock %}
+</center>
