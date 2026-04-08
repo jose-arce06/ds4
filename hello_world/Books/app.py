@@ -26,7 +26,7 @@ def search_by_author():
 def book_detail(book_id):
     book = book_dict.get(book_id)
     #print(book)
-    return render_template('book_detail.html', book=book)
+    return render_template('card.html', book=book)
 
         
 if __name__ == '__main__':
