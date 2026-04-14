@@ -9,6 +9,7 @@ books = load_books(filename)
 author_dict = create_author_dictionary(books)
 book_dict = create_book_dictionary(books)
 
+
 @app.route('/')
 def index():
     return render_template('new_index.html')
@@ -22,7 +23,18 @@ def search_by_author():
     else:
         return render_template('search_by_author.html', books_list=books[:10])
 
-@app.route('/book/<book_id>')
+@app.route('/search_by_title', methods=['GET', 'POST'])
+def search_by_title():
+    if request.method == 'POST':
+        title = request.form['title']
+        books_list = title_dict.get(title.lower(), [])
+        print(f"title:{title.lower()}")
+        print(f"Book list lenght: {len(books_list)}")
+        return render_template('search_by_title.html', books_list=books_list)
+    else:
+        return render_template('search_by_title.html', books_list=books[:10])
+
+@app.route('/book/<book_id>')   
 def book_detail(book_id):
     book = book_dict.get(book_id)
     #print(book)
