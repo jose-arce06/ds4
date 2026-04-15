@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from frases_celebres import Frase, carga_archivo_csv, crea_diccionario_titulos, buscar_palabras
 
 app = Flask(__name__)
@@ -19,4 +19,4 @@ def frase():
     return render_template("frase.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
