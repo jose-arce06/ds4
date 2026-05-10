@@ -14,9 +14,15 @@ def index():
 def pelicula():
     return render_template("pelicula.html")
 
-@app.route('/frase')
+@app.route('/frase', methods=['GET', 'POST'])
 def frase():
-    return render_template("frase.html")
+    if request.method == 'POST':
+        frase = request.form['frase']
+        frases_encontradas = buscar_palabras(frases, frase)
+        return render_template("frase.html", frases=frases_encontradas)
+    else:
+        return render_template("frase.html", frases=frases)
+    
 
 if __name__ == "__main__":
     app.run(debug=True) 

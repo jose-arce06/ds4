@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Frases Celebres de Películas - Home{% endblock %}
+{% block body %}
+<div class="container">
+    <div>
+        <form action="/frases" method="post">
+            <label for="frase">Frase:</label>
+            <input type="text" id="frase" name="frase" required>
+            <button type="submit">Agregar Frase</button>
+        </form>
+    <div>
+        <ul>
+            {% for frase in frases %}
+            <li>{{ frase.texto }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="row">
+        {% for frase in frases %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">{{ frase.texto }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted
