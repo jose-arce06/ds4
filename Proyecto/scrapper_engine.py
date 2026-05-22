@@ -32,7 +32,7 @@ def calcular_similitud_levenshtein(texto_buscado, texto_bloque):
     max_len = max(len(texto_buscado), len(texto_bloque))
     similitud = 1.0 - (distancia / max_len)
     
-    # Truncado estricto a 3 decimales sin redondeo (ej. 0.8569 -> 0.856)
+    
     factor = 1000
     similitud_truncada = math.trunc(similitud * factor) / factor
     return similitud_truncada
@@ -42,11 +42,8 @@ def ejecutar_scraping_url(source_id, url):
     Aquí integrarán el código del repositorio base para descargar PDFs.
     Simulación de la integración de OCR si el PDF no tiene texto:
     """
-    # 1. Descargar PDFs de la URL...
-    # 2. Extraer texto digital. Si viene vacío:
-    #    text = pytesseract.image_to_string(pdf_page_render) [OCR EXTRA]
-    
-    # Mock de inserción para pruebas del sistema web:
+ 
+  
     filename = "documento_ejemplo.pdf"
     content = "Este es un bloque de texto indexado para pruebas de desarrollo de sistemas de información."
     word_count = len(content.split())

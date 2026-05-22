@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Configuración del Sistema</h2>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-secondary text-white">Agregar nueva URL de rastreo</div>
+    <div class="card-body">
+        <form class="row g-3" method="POST">
+            <div class="col-md-10">
+                <input type="url" class="form-control" name="url" placeholder="https://ejemplo.com/documentos" required>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success w-100">ADD</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">Direcciones Registradas</div>
+    <ul class="list-group list-group-flush">
+        {% for source in sources %}
+        <li class="list-group-item text-monospace text-secondary">{{ source['url'] }}</li>
+        {% else %}
+        <li class="list-group-item text-muted">No se han registrado URLs iniciales.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

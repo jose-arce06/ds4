@@ -38,13 +38,13 @@
 
 {% block scripts %}
 <script>
-    // [EXTRA] Actualización asíncrona periódica de los documentos indexados en el Home
+  
     setInterval(function() {
         fetch('/api/stats')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('total-docs-dash').innerText = data.total_docs;
             });
-    }, 5000); // Se verifica cada 5 segundos
+    }, 5000); 
 </script>
 {% endblock %}

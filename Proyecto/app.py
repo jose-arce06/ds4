@@ -48,7 +48,7 @@ def configuration():
                     conn.execute('INSERT INTO sources (url) VALUES (?)', (url,))
                     conn.commit()
                 except:
-                    pass # Evitar duplicados violentos
+                    pass 
             return redirect('/configuration')
             
         sources = conn.execute('SELECT url FROM sources').fetchall()
@@ -57,7 +57,7 @@ def configuration():
 @app.route('/search')
 def search():
     query = request.args.get('q', '').strip()
-    # Capturar valor del slider (por defecto 0.0 si no se mueve)
+   
     threshold = float(request.args.get('threshold', 0.0))
     results = []
     
@@ -67,7 +67,7 @@ def search():
             
         for doc in documents:
             content = doc['content']
-            # Opcional: Dividir el contenido en bloques/párrafos para buscar coincidencias parciales más exactas
+          
             similitud = scrapper_engine.calcular_similitud_levenshtein(query, content)
             
             if similitud >= threshold:
@@ -77,7 +77,7 @@ def search():
                     'similarity': similitud
                 })
         
-        # Ordenar resultados de mayor a menor similitud
+       
         results = sorted(results, key=lambda x: x['similarity'], reverse=True)
 
     return render_template('search.html', query=query, threshold=threshold, results=results)

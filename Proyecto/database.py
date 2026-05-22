@@ -9,7 +9,7 @@ def get_db():
 
 def init_db():
     with get_db() as conn:
-        # Tabla para las URLs de configuración
+       
         conn.execute('''
             CREATE TABLE IF NOT EXISTS sources (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +17,7 @@ def init_db():
                 status TEXT DEFAULT 'no escrapeada'
             )
         ''')
-        # Tabla para los documentos indexados
+      
         conn.execute('''
             CREATE TABLE IF NOT EXISTS documents (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,6 +31,4 @@ def init_db():
             )
         ''')
         conn.commit()
-
-# Inicializar al importar
 init_db()
