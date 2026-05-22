@@ -1,35 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row text-center mt-4">
+<div class="row text-center mt-3">
     <div class="col-md-6 mb-4">
-        <div class="card bg-primary text-white shadow">
-            <div class="card-body">
-                <h3>Documentos Indexados</h3>
-                <h1 id="total-docs-dash">{{ total_docs }}</h1>
+        <div class="card bg-primary text-white shadow-sm border-0">
+            <div class="card-body py-4">
+                <h4 class="card-title text-uppercase font-weight-bold">Documentos Indexados</h4>
+                <h1 id="total-docs-dash" class="display-3 fw-bold">{{ total_docs }}</h1>
             </div>
         </div>
     </div>
     <div class="col-md-6 mb-4">
-        <div class="card bg-success text-white shadow">
-            <div class="card-body">
-                <h3>Palabras Indexadas</h3>
-                <h1>{{ total_words }}</h1>
+        <div class="card bg-success text-white shadow-sm border-0">
+            <div class="card-body py-4">
+                <h4 class="card-title text-uppercase font-weight-bold">Palabras Indexadas</h4>
+                <h1 class="display-3 fw-bold">{{ total_words }}</h1>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card shadow mt-4">
-    <div class="card-header bg-dark text-white">Documentos por Año</div>
-    <div class="card-body">
+<div class="card shadow-sm mt-3">
+    <div class="card-header bg-dark text-white fw-bold">📅 Documentos por Año</div>
+    <div class="card-body p-0">
         <ul class="list-group list-group-flush">
             {% for row in docs_by_year %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <strong>{{ row['year'] }}</strong>
-                <span class="badge bg-secondary rounded-pill">{{ row['qty'] }} documentos</span>
+            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <span>Año Fiscal / Edición: <strong>{{ row['year'] }}</strong></span>
+                <span class="badge bg-secondary p-2 rounded-pill">{{ row['qty'] }} documentos</span>
             </li>
             {% else %}
-            <li class="list-group-item text-muted">No hay documentos indexados actualmente.</li>
+            <li class="list-group-item text-muted text-center py-4">Base de datos vacía. Ejecute el Scrapper para indexar información.</li>
             {% endfor %}
         </ul>
     </div>
@@ -38,13 +38,13 @@
 
 {% block scripts %}
 <script>
-  
+    // [EXTRA] Monitoreo en segundo plano que actualiza el dashboard dinámicamente cada 4 segundos
     setInterval(function() {
         fetch('/api/stats')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('total-docs-dash').innerText = data.total_docs;
             });
-    }, 5000); 
+    }, 4000);
 </script>
 {% endblock %}

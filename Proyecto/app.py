@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_index, jsonify
+from flask import Flask, render_template, request, redirect, jsonify
 from database import get_db
 import scrapper_engine
 
@@ -7,19 +7,25 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     with get_db() as conn:
-        total_docs = conn.execute('SELECT COUNT(*) FROM documents').fetchone()[0]
-        total_words = conn.execute('SELECT SUM(word_count) FROM documents').fetchone()[0] or 0
+        # Ejecutamos y convertimos el resultado inmediatamente en un diccionario de Python
+        total_docs_row = conn.execute('SELECT COUNT(*) as total FROM documents').fetchone()
+        total_docs = dict(total_docs_row)['total'] if total_docs_row else 0
+        
+        total_words_row = conn.execute('SELECT SUM(word_count) as total FROM documents').fetchone()
+        total_words = dict(total_words_row)['total'] if total_words_row and total_words_row['total'] is not None else 0
+        
         docs_by_year = conn.execute('SELECT year, COUNT(*) as qty FROM documents GROUP BY year ORDER BY year DESC').fetchall()
         
     return render_template('home.html', total_docs=total_docs, total_words=total_words, docs_by_year=docs_by_year)
 
+
 @app.route('/api/stats')
 def api_stats():
-    """Ruta para actualización en tiempo real vía AJAX [EXTRA]"""
+    """Ruta de API para la actualización dinámica del Home"""
     with get_db() as conn:
-        total_docs = conn.execute('SELECT COUNT(*) FROM documents').fetchone()[0]
+        # CORRECCIÓN: Agregamos aquí también para que el JavaScript reciba un entero limpio
+        total_docs = conn.execute('SELECT COUNT(*) FROM documents').fetchone()
     return jsonify(total_docs=total_docs)
-
 @app.route('/scrapper')
 def scrapper():
     with get_db() as conn:
@@ -42,13 +48,13 @@ def run_scrapper(source_id):
 def configuration():
     with get_db() as conn:
         if request.method == 'POST':
-            url = request.form.get('url')
+            url = request.form.get('url', '').strip()
             if url:
                 try:
                     conn.execute('INSERT INTO sources (url) VALUES (?)', (url,))
                     conn.commit()
                 except:
-                    pass 
+                    pass  # Ignorar si la URL ya existía de forma idéntica
             return redirect('/configuration')
             
         sources = conn.execute('SELECT url FROM sources').fetchall()
@@ -57,7 +63,7 @@ def configuration():
 @app.route('/search')
 def search():
     query = request.args.get('q', '').strip()
-   
+    # Capturar slider (Por defecto en 0.0 si no se altera)
     threshold = float(request.args.get('threshold', 0.0))
     results = []
     
@@ -66,18 +72,21 @@ def search():
             documents = conn.execute('SELECT original_url, content FROM documents').fetchall()
             
         for doc in documents:
-            content = doc['content']
-          
-            similitud = scrapper_engine.calcular_similitud_levenshtein(query, content)
+            content = doc['content'] or ""
+            # Segmentamos en líneas o fragmentos significativos para no diluir Levenshtein
+            bloques = [b.strip() for b in content.split('\n') if len(b.strip()) > 3]
             
-            if similitud >= threshold:
-                results.append({
-                    'url': doc['original_url'],
-                    'block': content,
-                    'similarity': similitud
-                })
-        
-       
+            for bloque in bloques:
+                similitud = scrapper_engine.calcular_similitud_levenshtein(query, bloque)
+                
+                if similitud >= threshold:
+                    results.append({
+                        'url': doc['original_url'],
+                        'block': bloque,
+                        'similarity': similitud
+                    })
+                    
+        # Ordenar resultados de mayor a menor relevancia
         results = sorted(results, key=lambda x: x['similarity'], reverse=True)
 
     return render_template('search.html', query=query, threshold=threshold, results=results)
