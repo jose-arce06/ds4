@@ -1,46 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="mb-4">Resultados de Búsqueda</h2>
+<h2 class="mb-4 fw-bold">Buscador por Similitud Levenshtein</h2>
 
-<div class="card p-4 shadow-sm mb-4 bg-white">
+<div class="card p-4 shadow-sm mb-4 bg-white border-0">
     <form action="/search" method="GET" class="row g-3 align-items-center">
         <div class="col-md-7">
-            <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Modificar búsqueda..." required>
+            <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Texto o palabra a buscar..." required>
         </div>
         <div class="col-md-3">
-            <label for="threshold" class="form-label small mb-0">Similitud Mínima: <strong id="val-range">{{ threshold }}</strong></label>
+            <label for="threshold" class="form-label small fw-bold text-secondary mb-1">Tolerancia (Similitud >= <span id="val-range" class="text-primary">{{ threshold }}</span>)</label>
             <input type="range" class="form-range" min="0" max="1" step="0.05" id="threshold" name="threshold" value="{{ threshold }}" oninput="document.getElementById('val-range').innerText=this.value">
         </div>
         <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Search</button>
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Search</button>
         </div>
     </form>
 </div>
 
 {% if query %}
-    <p class="text-muted">Texto buscado: <span class="badge bg-info text-dark font-monospace fs-6">{{ query }}</span></p>
+    <p class="text-muted mb-4">Frase evaluada: <span class="badge bg-dark font-monospace px-3 py-2 fs-6">{{ query }}</span></p>
     
     <div class="row">
         {% for res in results %}
         <div class="col-12 mb-3">
-            <div class="card border-start border-4 border-success shadow-sm">
+            <div class="card border-start border-4 border-success shadow-sm rounded-end border-0">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <a href="{{ res['url'] }}" target="_blank" class="text-decoration-none text-truncate fw-bold me-3" style="max-width: 75%;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <a href="{{ res['url'] }}" target="_blank" class="text-decoration-none text-truncate fw-bold text-success" style="max-width: 75%;">
                             🔗 {{ res['url'] }}
                         </a>
-                        <span class="badge bg-success p-2">
-                            Similitud: {{ res['similarity'] }}
+                        <span class="badge bg-success p-2 font-monospace fs-6">
+                            Similitud: {{ "%.3f"|format(res['similarity']) }}
                         </span>
                     </div>
-                    <hr class="my-2">
-                    <p class="card-text text-dark bg-light p-3 rounded text-monospace small" style="white-space: pre-wrap;">{{ res['block'] }}</p>
+                    <div class="bg-light p-3 rounded text-dark font-monospace small border" style="white-space: pre-wrap;">{{ res['block'] }}</div>
                 </div>
             </div>
         </div>
         {% else %}
-        <div class="text-center p-5 text-muted">
-            <h5>No se encontraron bloques de texto con una coincidencia mayor o igual a {{ threshold }}.</h5>
+        <div class="col-12 text-center p-5 text-muted bg-white rounded shadow-sm">
+            <h5>No hay coincidencias en los bloques indexados que alcancen el rango seleccionado de {{ threshold }}.</h5>
         </div>
         {% endfor %}
     </div>
