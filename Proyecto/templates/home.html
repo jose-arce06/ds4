@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row text-center mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card bg-primary text-white shadow">
+            <div class="card-body">
+                <h3>Documentos Indexados</h3>
+                <h1 id="total-docs-dash">{{ total_docs }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                <h3>Palabras Indexadas</h3>
+                <h1>{{ total_words }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mt-4">
+    <div class="card-header bg-dark text-white">Documentos por Año</div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            {% for row in docs_by_year %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>{{ row['year'] }}</strong>
+                <span class="badge bg-secondary rounded-pill">{{ row['qty'] }} documentos</span>
+            </li>
+            {% else %}
+            <li class="list-group-item text-muted">No hay documentos indexados actualmente.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // [EXTRA] Actualización asíncrona periódica de los documentos indexados en el Home
+    setInterval(function() {
+        fetch('/api/stats')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-docs-dash').innerText = data.total_docs;
+            });
+    }, 5000); // Se verifica cada 5 segundos
+</script>
+{% endblock %}
