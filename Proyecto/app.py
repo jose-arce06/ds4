@@ -16,7 +16,7 @@ def home():
         
         docs_by_year = conn.execute('SELECT year, COUNT(*) as qty FROM documents GROUP BY year ORDER BY year DESC').fetchall()
         
-    return render_template('home.html', total_docs=total_docs, total_words=total_words, docs_by_year=docs_by_year)
+    return render_template('home.html', total_docs=total_docs, total_words=total_words, docs_by_year=docs_by_year) 
 
 
 @app.route('/api/stats')
