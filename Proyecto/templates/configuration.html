@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="mb-4">Configuración del Sistema</h2>
+<h2 class="mb-4 fw-bold">Configuración de Orígenes</h2>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-header bg-secondary text-white">Agregar nueva URL de rastreo</div>
-    <div class="card-body">
+<div class="card shadow-sm mb-4 border-0">
+    <div class="card-header bg-secondary text-white fw-bold">Agregar nueva dirección web</div>
+    <div class="card-body bg-white rounded-bottom">
         <form class="row g-3" method="POST">
             <div class="col-md-10">
-                <input type="url" class="form-control" name="url" placeholder="https://ejemplo.com/documentos" required>
+                <input type="url" class="form-control" name="url" placeholder="https://sitio-web-con-pdfs.com/lista" required>
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-success w-100">ADD</button>
+                <button type="submit" class="btn btn-success w-100 fw-bold">ADD</button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-header bg-dark text-white">Direcciones Registradas</div>
-    <ul class="list-group list-group-flush">
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white fw-bold">Direcciones ya añadidas en el sistema</div>
+    <ul class="list-group list-group-flush rounded-bottom">
         {% for source in sources %}
-        <li class="list-group-item text-monospace text-secondary">{{ source['url'] }}</li>
+        <li class="list-group-item font-monospace text-secondary py-3">{{ source['url'] }}</li>
         {% else %}
-        <li class="list-group-item text-muted">No se han registrado URLs iniciales.</li>
+        <li class="list-group-item text-muted text-center py-4">No hay URLs ingresadas en este momento.</li>
         {% endfor %}
     </ul>
 </div>
