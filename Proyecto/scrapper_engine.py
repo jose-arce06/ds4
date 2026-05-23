@@ -83,15 +83,23 @@ def ejecutar_scraping_url(source_id, url_origen):
                 href = urljoin(url_origen, href)
             pdf_links.append(href)
 
-    # 3. Descarga y procesamiento de cada archivo
     converter = MarkItDown()
     
     with get_db() as conn:
         for link in pdf_links:
             filename = link.split('/')[-1]
+            existe = conn.execute('''
+                SELECT id FROM documents 
+                WHERE source_id = ? AND filename = ?
+            ''', (source_id, filename)).fetchone()
+            
+            if existe:
+                print(f"⏭️ El archivo {filename} ya está indexado. Saltando...")
+                continue 
+                
             downloaded_file = os.path.join(download_path, filename)
             
-            # Descarga del archivo binario
+            
             try:
                 pdf_res = requests.get(link, timeout=10)
                 pdf_res.raise_for_status()
