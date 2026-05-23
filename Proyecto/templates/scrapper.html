@@ -21,7 +21,7 @@
                 <small class="text-muted d-block fw-bold mb-2">Archivos descargados e indexados de esta fuente:</small>
                 <ul class="list-unstyled ps-2 mb-0">
                     {% for filename in docs_by_source[source['id']] %}
-                        <li class="text-secondary mb-1">📄 <span class="font-monospace">{{ filename }}</span></li>
+                        <li class="text-secondary mb-1"> <span class="font-monospace">{{ filename }}</span></li>
                     {% else %}
                         <li class="text-muted small italic">Ningún archivo procesado. Presione "Iniciar Escrapeo".</li>
                     {% endfor %}

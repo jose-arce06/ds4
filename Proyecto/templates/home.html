@@ -38,7 +38,7 @@
 
 {% block scripts %}
 <script>
-    // [EXTRA] Monitoreo en segundo plano que actualiza el dashboard dinámicamente cada 4 segundos
+   
     setInterval(function() {
         fetch('/api/stats')
             .then(response => response.json())
